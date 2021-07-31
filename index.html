@@ -1,0 +1,255 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Co-ordinator</title>
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+    <style>
+        header h1 {
+            text-align: center;
+            margin: 40px auto;
+            color: #ff5577;
+            background-color: beige;
+            padding: 10px
+        }
+        
+        form {
+            margin: 20px auto;
+            width: 420px;
+        }
+        
+        form .upload {
+            width: 100%;
+            background: linear-gradient(30deg, #af1a72, #fa2249);
+            position: relative;
+            height: 50px;
+            display: flex;
+            justify-content: space-between;
+            border-radius: 10px;
+            border: 2px solid #eee
+        }
+        
+        form .upload p {
+            color: #fff;
+            text-align: center;
+            position: absolute;
+            top: -15px;
+            left: 0px;
+            z-index: 1;
+            width: 100%;
+            line-height: 50px;
+        }
+        
+        form .upload i {
+            position: absolute;
+            top: 14px;
+            right: 16px;
+            display: block;
+            z-index: 1;
+            font-size: 23px;
+            color: #fff
+        }
+        
+        form .upload input {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            display: block;
+            z-index: 2;
+            background: transparent;
+            top: 0;
+            left: 0;
+            color: transparent;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .image {
+            width: 400px;
+            margin: 20px auto;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center
+        }
+        
+        .image img {
+            cursor: crosshair
+        }
+        
+        .displayCordinates {
+            width: 400px;
+            margin: 20px auto;
+            background: 20px auto;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: linear-gradient(30deg, #af1a72, #fa2249);
+            border: 2px solid #eee;
+            border-radius: 10px;
+        }
+        
+        .displayCordinates p {
+            color: #fff;
+            border: 2px solid #fefeff;
+            width: 40%;
+            padding: 10px;
+            border-radius: 10px
+        }
+        
+        .displayCordinates p span {
+            color: rgb(207, 201, 201);
+            display: inline-block;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        
+        .savedCoordinates {
+            width: 400px;
+            margin: 20px auto;
+            border: 2px solid #eee;
+            padding: 0px;
+            border-radius: 10px;
+        }
+        
+        .savedCoordinates ul {
+            width: 100%;
+            padding: 0px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center
+        }
+        
+        .savedCoordinates ul li {
+            width: 90%;
+            color: #fff;
+            margin: 5px;
+            padding: 10px;
+            background: linear-gradient(30deg, #af1a72, #fa2249);
+        }
+        
+        .savedCoordinates p {
+            color: #af1a72;
+            text-align: center;
+            margin: 10px;
+            font-weight: bold;
+            font-size: 20px
+        }
+        
+        @media(max-width:767px) {
+            header h1 {
+                font-size: 25px
+            }
+            form {
+                margin: 20px auto;
+                width: 80%;
+            }
+            form .upload i {
+                font-size: 18px;
+            }
+            .image {
+                width: 80%;
+            }
+            .savedCoordinates {
+                width: 80%;
+            }
+            .displayCordinates {
+                width: 80%;
+            }
+            .displayCordinates p {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1> Coordinate things in images ✒️</h1>
+    </header>
+    <form>
+        <div class="upload">
+            <p>Upload Your Photo</p>
+            <i class="fas fa-upload"></i> <input id="upload" type="file">
+        </div>
+    </form>
+
+
+    <div class="image">
+        <img src="https://via.placeholder.com/300/FF5588/ffffff ?Text=Digital.com
+        C/O https://placeholder.com/">
+    </div>
+
+    <div class="displayCordinates">
+
+        <p> X :<span class="x-axis"></span></p>
+        <p> Y :<span class="y-axis"></span></p>
+
+    </div>
+
+
+
+    <div class="savedCoordinates">
+        <p>Coordinates will saved here 👇 </p>
+        <ul></ul>
+    </div>
+
+
+    <script>
+        let photo = document.getElementById("upload");
+        let upload = document.getElementsByClassName('upload')[0];
+        let uploadedImage = document.getElementsByClassName('image')[0];
+        let imgSrc;
+        upload.addEventListener('change', function() {
+
+            // console.log(photo.value.split('\\')[2]);
+            let imgList = photo.value.split('\\');
+            imgSrc = imgList[imgList.length - 1];
+            console.log(uploadedImage);
+
+            upload.children[0].innerHTML = imgSrc;
+
+            (uploadedImage.children[0]).setAttribute('src', URL.createObjectURL(event.target.files[0]));
+        });
+
+        let coordinates = document.querySelector('.displayCordinates');
+
+        let x_axis = coordinates.children[0].children[0];
+        let y_axis = coordinates.children[1].children[0];
+
+
+        console.log(x_axis);
+        console.log(y_axis);
+
+        let savedCoordinates = document.querySelector('.savedCoordinates');
+
+        uploadedImage.children[0].addEventListener('mousemove', function(e) {
+
+            //console.log(e.offsetX)
+            x_axis.innerHTML = e.offsetX;
+            y_axis.innerHTML = e.offsetY;
+
+        });
+
+        uploadedImage.children[0].addEventListener('click', function() {
+
+
+            let li = document.createElement('li');
+            let ul = savedCoordinates.children[1];
+            li.innerHTML = ` the image called : ${imgSrc} and  x_axis of equal : ${x_axis.innerHTML} and Y_axis equal ${y_axis.innerHTML}`;
+            ul.appendChild(li);
+        });
+        let name = prompt('enter your name :');
+        alert('Hello ' + name + " upload image you want and click in any position in image and you will get coordinates in the bottom of the page ")
+    </script>
+</body>
+
+</html>
